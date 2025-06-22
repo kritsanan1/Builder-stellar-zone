@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import { MessageCircle, Bot } from "lucide-react";
+import { Bot, Shield } from "lucide-react";
 import { useLanguage, getLanguageFont } from "@/lib/i18n";
+import ChatInterface from "@/components/ChatInterface";
 import { cn } from "@/lib/utils";
 
 export default function AIChat() {
@@ -8,49 +9,83 @@ export default function AIChat() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-white to-mindful-soft-blue pb-20">
-      <div className="flex flex-col items-center justify-center h-screen px-4">
+      {/* Header */}
+      <div className="px-4 pt-8 pb-4">
         <motion.div
-          className="text-center"
-          initial={{ opacity: 0, y: 20 }}
+          className="flex items-center justify-between"
+          initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="bg-mindful-mint rounded-full p-6 mx-auto mb-6 w-fit">
-            <Bot size={48} className="text-mindful-dark-green" />
+          <div className="flex items-center space-x-3">
+            <div className="bg-mindful-mint rounded-lg p-2">
+              <Bot size={24} className="text-mindful-dark-green" />
+            </div>
+            <div>
+              <h1
+                className={cn(
+                  "text-xl font-bold text-mindful-text",
+                  getLanguageFont(language),
+                )}
+              >
+                {t("aiChat")}
+              </h1>
+              <p
+                className={cn(
+                  "text-sm text-mindful-text/70",
+                  getLanguageFont(language),
+                )}
+              >
+                {language === "th"
+                  ? "ผู้ช่วยดูแลสุขภาพจิต"
+                  : "Mental Health Companion"}
+              </p>
+            </div>
           </div>
 
-          <h1
-            className={cn(
-              "text-3xl font-bold text-mindful-text mb-4",
-              getLanguageFont(language),
-            )}
-          >
-            {t("aiChat")}
-          </h1>
-
-          <p
-            className={cn(
-              "text-mindful-text/70 mb-8 max-w-sm",
-              getLanguageFont(language),
-            )}
-          >
-            {language === "th"
-              ? "แชทกับ AI ที่เข้าใจและช่วยดูแลสุขภาพจิตของคุณ"
-              : "Chat with AI that understands and helps care for your mental health"}
-          </p>
-
-          <motion.div
-            className={cn(
-              "bg-mindful-soft-blue rounded-xl p-4 text-mindful-text",
-              getLanguageFont(language),
-            )}
-            animate={{ scale: [1, 1.02, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            {t("comingSoon")}
-          </motion.div>
+          <div className="flex items-center space-x-2">
+            <Shield size={16} className="text-mindful-dark-green" />
+            <span
+              className={cn(
+                "text-xs text-mindful-text/60",
+                getLanguageFont(language),
+              )}
+            >
+              {language === "th" ? "ปลอดภัย" : "Secure"}
+            </span>
+          </div>
         </motion.div>
       </div>
+
+      {/* Chat Interface */}
+      <motion.div
+        className="mx-4 mb-4 bg-white rounded-2xl shadow-sm overflow-hidden"
+        style={{ height: "calc(100vh - 180px)" }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+      >
+        <ChatInterface />
+      </motion.div>
+
+      {/* Privacy Notice */}
+      <motion.div
+        className="mx-4 bg-mindful-mint rounded-xl p-3"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        <p
+          className={cn(
+            "text-xs text-mindful-text/80 text-center",
+            getLanguageFont(language),
+          )}
+        >
+          {language === "th"
+            ? "การสนทนาของคุณถูกเข้ารหัสและปฏิบัติตาม PDPA • ข้อมูลไม่ถูกแชร์กับบุคคลที่สาม"
+            : "Your conversations are encrypted and PDPA compliant • Data is never shared with third parties"}
+        </p>
+      </motion.div>
     </div>
   );
 }
