@@ -245,7 +245,9 @@ export default function Community() {
             getLanguageFont(language),
           )}
         >
-          )}
+          {language === "th"
+            ? "การสนทนาทั้งหมดถูกควบคุมโดย AI และปฏิบัติตาม PDPA • ข้อมูลไม่ถูกแชร์กับบุคคลที่สาม"
+            : "All conversations are AI-moderated and PDPA compliant • Data is never shared with third parties"}
         </p>
       </motion.div>
 
