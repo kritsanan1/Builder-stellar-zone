@@ -1,6 +1,13 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Home, MessageCircle, BookOpen, Users, User } from "lucide-react";
+import {
+  Home,
+  MessageCircle,
+  BookOpen,
+  Users,
+  MessageSquare,
+  User,
+} from "lucide-react";
 import { useLanguage, getLanguageFont } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
@@ -28,6 +35,12 @@ const navigationItems = [
     path: "/therapist",
     icon: Users,
     translationKey: "therapist" as const,
+  },
+  {
+    key: "community",
+    path: "/community",
+    icon: MessageSquare,
+    translationKey: "community" as const,
   },
   {
     key: "profile",

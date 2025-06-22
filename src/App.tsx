@@ -7,6 +7,8 @@ import Home from "./pages/Home";
 import AIChat from "./pages/AIChat";
 import Content from "./pages/Content";
 import Therapist from "./pages/Therapist";
+import Community from "./pages/Community";
+import CommunityRoom from "./pages/CommunityRoom";
 import Profile from "./pages/Profile";
 import SmartWatchDemo from "./pages/SmartWatchDemo";
 import NotFound from "./pages/NotFound";
@@ -38,6 +40,8 @@ const App = () => {
               <Route path="/ai-chat" element={<AIChat />} />
               <Route path="/content" element={<Content />} />
               <Route path="/therapist" element={<Therapist />} />
+              <Route path="/community" element={<Community />} />
+              <Route path="/community/:roomId" element={<CommunityRoom />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/smartwatch-demo" element={<SmartWatchDemo />} />
               <Route path="*" element={<NotFound />} />
