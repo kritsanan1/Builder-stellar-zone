@@ -10,6 +10,7 @@ import Therapist from "./pages/Therapist";
 import Community from "./pages/Community";
 import CommunityRoom from "./pages/CommunityRoom";
 import Profile from "./pages/Profile";
+import Pricing from "./pages/Pricing";
 import SmartWatchDemo from "./pages/SmartWatchDemo";
 import NotFound from "./pages/NotFound";
 import BottomNavigation from "./components/BottomNavigation";
@@ -42,6 +43,7 @@ const App = () => {
               <Route path="/community" element={<Community />} />
               <Route path="/community/:roomId" element={<CommunityRoom />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/pricing" element={<Pricing />} />
               <Route path="/smartwatch-demo" element={<SmartWatchDemo />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

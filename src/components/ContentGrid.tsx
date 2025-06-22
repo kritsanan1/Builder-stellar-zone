@@ -1,7 +1,16 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, BookOpen, Wind, Clock, Crown, Volume2 } from "lucide-react";
+import {
+  Play,
+  BookOpen,
+  Wind,
+  Clock,
+  Crown,
+  Volume2,
+  Lock,
+} from "lucide-react";
 import { useLanguage, getLanguageFont } from "@/lib/i18n";
+import { usePricing } from "@/lib/pricing";
 import { cn } from "@/lib/utils";
 
 interface ContentItem {
@@ -90,7 +99,7 @@ const contentItems: ContentItem[] = [
       en: "Advanced Meditation",
     },
     description: {
-      th: "เทคนิคสมาธิสำหรับผู้ที่มีประสบการณ์",
+      th: "เทคนิคสมาธิสำหรับผู้ที่มีประสบ��ารณ์",
       en: "Advanced techniques for experienced practitioners",
     },
     duration: 20,
@@ -129,6 +138,7 @@ const categories = [
 
 export default function ContentGrid() {
   const { language } = useLanguage();
+  const { userSubscription, isFeatureAvailable } = usePricing();
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [showPremiumOnly, setShowPremiumOnly] = useState(false);
   const [playingId, setPlayingId] = useState<string | null>(null);
@@ -141,6 +151,24 @@ export default function ContentGrid() {
   });
 
   const handlePlay = (itemId: string) => {
+    const item = contentItems.find((c) => c.id === itemId);
+
+    // Check if premium content and user has access
+    if (item?.isPremium && !isFeatureAvailable("premium_content")) {
+      // Show upgrade prompt
+      const event = new CustomEvent("toast", {
+        detail: {
+          title: language === "th" ? "เนื้อหาพรีเมียม" : "Premium Content",
+          description:
+            language === "th"
+              ? "อัปเกรดเป็นพรีเมียมเพื่อเข้าถึงเนื้อหานี้"
+              : "Upgrade to Premium to access this content",
+        },
+      });
+      window.dispatchEvent(event);
+      return;
+    }
+
     if (playingId === itemId) {
       setPlayingId(null);
     } else {
@@ -266,6 +294,14 @@ export default function ContentGrid() {
                   {item.isPremium && (
                     <div className="absolute top-2 right-2 bg-mindful-dark-green text-white rounded-full p-1">
                       <Crown size={12} />
+                    </div>
+                  )}
+
+                  {item.isPremium && !isFeatureAvailable("premium_content") && (
+                    <div className="absolute inset-0 bg-black/20 rounded-lg flex items-center justify-center">
+                      <div className="bg-white/90 rounded-full p-3">
+                        <Lock size={24} className="text-mindful-dark-green" />
+                      </div>
                     </div>
                   )}
 

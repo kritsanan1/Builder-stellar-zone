@@ -1,12 +1,16 @@
 import { motion } from "framer-motion";
-import { User, Award, Settings, Watch } from "lucide-react";
+import { User, Award, Settings, Watch, CreditCard, Crown } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { useLanguage, getLanguageFont } from "@/lib/i18n";
+import { usePricing } from "@/lib/pricing";
 import SmartWatchSettings from "@/components/SmartWatchSettings";
 import SleepTrackingCard from "@/components/SleepTrackingCard";
 import { cn } from "@/lib/utils";
 
 export default function Profile() {
   const { language, t } = useLanguage();
+  const navigate = useNavigate();
+  const { userSubscription, getSubscriptionStatus, formatPrice } = usePricing();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-white to-mindful-soft-blue pb-20">
@@ -72,7 +76,7 @@ export default function Profile() {
                   getLanguageFont(language),
                 )}
               >
-                {language === "th" ? "���ันต่อเนื่อง" : "Day Streak"}
+                {language === "th" ? "วันต่อเนื่อง" : "Day Streak"}
               </div>
             </div>
             <div className="text-center">
@@ -101,6 +105,97 @@ export default function Profile() {
                 {language === "th" ? "เหรียญ" : "Badges"}
               </div>
             </div>
+          </div>
+        </motion.div>
+
+        {/* Subscription Status */}
+        <motion.div
+          className="bg-white rounded-2xl p-6 shadow-sm"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+        >
+          <div className="flex items-center space-x-3 mb-4">
+            <div className="bg-mindful-mint rounded-lg p-2">
+              <CreditCard size={24} className="text-mindful-dark-green" />
+            </div>
+            <div>
+              <h2
+                className={cn(
+                  "text-xl font-semibold text-mindful-text",
+                  getLanguageFont(language),
+                )}
+              >
+                {language === "th" ? "สมาชิก" : "Subscription"}
+              </h2>
+              <p
+                className={cn(
+                  "text-sm text-mindful-text/70",
+                  getLanguageFont(language),
+                )}
+              >
+                {getSubscriptionStatus()}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between p-4 bg-mindful-soft-blue rounded-xl">
+            <div className="flex items-center space-x-3">
+              {userSubscription.tier === "premium" && (
+                <Crown size={20} className="text-mindful-dark-green" />
+              )}
+              <div>
+                <p
+                  className={cn(
+                    "font-medium text-mindful-text capitalize",
+                    getLanguageFont(language),
+                  )}
+                >
+                  {userSubscription.tier === "free"
+                    ? language === "th"
+                      ? "ฟรี"
+                      : "Free"
+                    : userSubscription.tier === "premium"
+                      ? language === "th"
+                        ? "พรีเมียม"
+                        : "Premium"
+                      : language === "th"
+                        ? "องค์กร"
+                        : "Enterprise"}
+                </p>
+                {userSubscription.tier === "premium" &&
+                  userSubscription.period && (
+                    <p
+                      className={cn(
+                        "text-sm text-mindful-text/70",
+                        getLanguageFont(language),
+                      )}
+                    >
+                      {userSubscription.period === "monthly"
+                        ? `${formatPrice(99)}/${language === "th" ? "เดือน" : "month"}`
+                        : `${formatPrice(999)}/${language === "th" ? "ปี" : "year"}`}
+                    </p>
+                  )}
+              </div>
+            </div>
+
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              onClick={() => navigate("/pricing")}
+              className={cn(
+                "px-4 py-2 bg-mindful-dark-green text-white rounded-lg text-sm font-medium",
+                "hover:bg-mindful-dark-green/90 transition-colors duration-200",
+                getLanguageFont(language),
+              )}
+            >
+              {userSubscription.tier === "free"
+                ? language === "th"
+                  ? "อัปเกรด"
+                  : "Upgrade"
+                : language === "th"
+                  ? "จัดการ"
+                  : "Manage"}
+            </motion.button>
           </div>
         </motion.div>
 
