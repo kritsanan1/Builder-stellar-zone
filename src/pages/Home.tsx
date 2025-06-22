@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Play, Heart, Brain, Moon, Crown } from "lucide-react";
 import { useLanguage, getLanguageFont } from "@/lib/i18n";
 import LanguageToggle from "@/components/LanguageToggle";
+import StressLevelCard from "@/components/StressLevelCard";
 import { cn } from "@/lib/utils";
 
 const mentalHealthTips = [
@@ -103,6 +104,9 @@ export default function Home() {
           </div>
         </motion.button>
 
+        {/* Stress Level Card */}
+        <StressLevelCard />
+
         {/* Mental Health Tips */}
         <div>
           <motion.h3
@@ -181,7 +185,7 @@ export default function Home() {
             )}
             whileTap={{ scale: 0.98 }}
           >
-            {language === "th" ? "เริ่มทดลองใช้ฟรี" : "Start Free Trial"}
+            {language === "th" ? "เริ่มทดลองใ��้ฟรี" : "Start Free Trial"}
           </motion.button>
         </motion.div>
       </div>

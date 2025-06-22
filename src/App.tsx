@@ -8,6 +8,7 @@ import AIChat from "./pages/AIChat";
 import Content from "./pages/Content";
 import Therapist from "./pages/Therapist";
 import Profile from "./pages/Profile";
+import SmartWatchDemo from "./pages/SmartWatchDemo";
 import NotFound from "./pages/NotFound";
 import BottomNavigation from "./components/BottomNavigation";
 
@@ -26,6 +27,7 @@ const App = () => (
             <Route path="/content" element={<Content />} />
             <Route path="/therapist" element={<Therapist />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/smartwatch-demo" element={<SmartWatchDemo />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <BottomNavigation />
