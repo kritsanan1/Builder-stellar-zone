@@ -295,10 +295,11 @@ export default function Profile() {
             )}
           >
             {language === "th"
-              ? "รับคุณสมบัติขั้นสูงและเนื้อหาเพิ่มเติม"
+              ? "รับคุณสมบัติขั้น��ูงและเนื้อหาเพิ่มเติม"
               : "Get advanced features and premium content"}
           </p>
           <motion.button
+            onClick={() => navigate("/pricing")}
             className={cn(
               "w-full bg-mindful-dark-green text-white rounded-xl py-3 font-medium",
               "hover:bg-mindful-dark-green/90 active:scale-[0.98] transition-all duration-200",
