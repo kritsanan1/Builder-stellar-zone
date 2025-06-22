@@ -4,12 +4,14 @@ import { MessageSquare, Users, TrendingUp, Shield, Search } from "lucide-react";
 import { useLanguage, getLanguageFont } from "@/lib/i18n";
 import { useCommunity } from "@/lib/community";
 import CommunityRoomCard from "@/components/CommunityRoomCard";
+import CommunityGuidelinesModal from "@/components/CommunityGuidelinesModal";
 import { cn } from "@/lib/utils";
 
 export default function Community() {
   const { language, t } = useLanguage();
   const { rooms, analytics } = useCommunity();
   const [searchQuery, setSearchQuery] = useState("");
+  const [showGuidelines, setShowGuidelines] = useState(false);
 
   const filteredRooms = rooms.filter(
     (room) =>
@@ -103,7 +105,7 @@ export default function Community() {
                 getLanguageFont(language),
               )}
             >
-              {language === "th" ? "ผู้ใช้ใช้งานอ���ู่" : "Active Users"}
+              {language === "th" ? "ผู้ใช้ใช้งานอยู่" : "Active Users"}
             </div>
           </div>
 
@@ -159,10 +161,11 @@ export default function Community() {
           </div>
           <p className={cn("text-white/90 mb-4", getLanguageFont(language))}>
             {language === "th"
-              ? "พื้นที่ปลอดภัยสำหรับการแบ่งปันและรับการ���นับสนุนด้านสุขภาพจิต"
+              ? "พื้นที่ปลอดภัยสำหรับการแบ่งปันและรับการสนับสนุนด้านสุขภาพจิต"
               : "A safe space for sharing and receiving mental health support"}
           </p>
           <motion.button
+            onClick={() => setShowGuidelines(true)}
             whileTap={{ scale: 0.95 }}
             className={cn(
               "bg-white text-mindful-dark-green px-4 py-2 rounded-lg font-medium",
@@ -242,11 +245,17 @@ export default function Community() {
             getLanguageFont(language),
           )}
         >
-          {language === "th"
-            ? "การสนทนาทั้งหมดถูกควบคุมโดย AI และปฏิบัติตาม PDPA • ข้อมูลไม่ถูกแชร์กับบุคคลที่สาม"
-            : "All conversations are AI-moderated and PDPA compliant • Data is never shared with third parties"}
+          )}
         </p>
       </motion.div>
+
+      {/* Community Guidelines Modal */}
+      <CommunityGuidelinesModal
+        isOpen={showGuidelines}
+        onClose={() => setShowGuidelines(false)}
+      />
     </div>
+  );
+}
   );
 }
