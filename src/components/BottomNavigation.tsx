@@ -25,12 +25,6 @@ const navigationItems = [
     translationKey: "aiChat" as const,
   },
   {
-    key: "content",
-    path: "/content",
-    icon: BookOpen,
-    translationKey: "content" as const,
-  },
-  {
     key: "therapist",
     path: "/therapist",
     icon: Users,

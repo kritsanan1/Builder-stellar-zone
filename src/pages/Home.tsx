@@ -3,6 +3,7 @@ import { Play, Heart, Brain, Moon, Crown } from "lucide-react";
 import { useLanguage, getLanguageFont } from "@/lib/i18n";
 import LanguageToggle from "@/components/LanguageToggle";
 import StressLevelCard from "@/components/StressLevelCard";
+import ContentGrid from "@/components/ContentGrid";
 import { cn } from "@/lib/utils";
 
 const mentalHealthTips = [
@@ -185,8 +186,26 @@ export default function Home() {
             )}
             whileTap={{ scale: 0.98 }}
           >
-            {language === "th" ? "เริ่มทดลองใ��้ฟรี" : "Start Free Trial"}
+            {language === "th" ? "เริ่มทดลองใช้ฟรี" : "Start Free Trial"}
           </motion.button>
+        </motion.div>
+
+        {/* Content Section */}
+        <motion.div
+          className="mt-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.8 }}
+        >
+          <h2
+            className={cn(
+              "text-xl font-semibold text-mindful-text mb-4",
+              getLanguageFont(language),
+            )}
+          >
+            {language === "th" ? "เนื้อหาแนะนำ" : "Recommended Content"}
+          </h2>
+          <ContentGrid />
         </motion.div>
       </div>
     </div>

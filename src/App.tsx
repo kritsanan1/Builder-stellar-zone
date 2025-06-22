@@ -38,7 +38,6 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/ai-chat" element={<AIChat />} />
-              <Route path="/content" element={<Content />} />
               <Route path="/therapist" element={<Therapist />} />
               <Route path="/community" element={<Community />} />
               <Route path="/community/:roomId" element={<CommunityRoom />} />
